@@ -1,0 +1,17 @@
+{
+  "bills": [
+    {
+      "descricao": "Luz",
+      "dataVencimento": "2025-09-25",
+      "valorVariavel": false,
+      "valor": "120.5",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "descricao": "Água",
+      "dataVencimento": "2025-09-30",
+      "valorVariavel": true
+    }
+  ]
+}
