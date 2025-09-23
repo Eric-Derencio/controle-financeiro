@@ -1,0 +1,22 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.layout-app-name {
+  margin-left: 8px;
+}
+
+.layout-sidenav-container {
+  flex: 1;
+}
+
+.active-link {
+  font-weight: bold;
+  color: #1976d2;
+}
