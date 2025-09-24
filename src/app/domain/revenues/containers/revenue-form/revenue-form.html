@@ -1,0 +1,73 @@
+<section class="title">
+  @if (id) {
+    <h1>Editar receita de {{ form.get('descricao')?.value }}</h1>
+  } @else {
+    <h1>Adicionar nova Receita</h1>
+  }
+</section>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="revenue-form">
+  <!-- Descrição -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Descrição</mat-label>
+    <input
+      matInput
+      formControlName="descricao"
+      placeholder="Ex: Salário, Freelance..."
+    />
+  </mat-form-field>
+
+  <!-- Data de Recebimento -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Data de Recebimento</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      formControlName="dataRecebimento"
+      placeholder="Selecione a data"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Valor -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Valor</mat-label>
+    <input matInput type="number" formControlName="valor" placeholder="0.00" />
+  </mat-form-field>
+
+  <!-- Observação -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Observação</mat-label>
+    <textarea
+      matInput
+      formControlName="observacao"
+      placeholder="Opcional"
+      rows="3"
+    ></textarea>
+  </mat-form-field>
+
+  <!-- Ações -->
+  <div class="actions">
+    @if (id) {
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Editar
+      </button>
+    } @else {
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Salvar
+      </button>
+    }
+    <button mat-button type="button" (click)="cancel()">Cancelar</button>
+  </div>
+</form>
