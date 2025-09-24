@@ -80,16 +80,15 @@ export class BillForm implements OnInit {
 
       if (this.id) {
         this.billService.update(this.id, bill).subscribe({
-          next: (updatedBill) => {
-            console.log('Conta atualizada com sucesso:', updatedBill);
+          next: () => {
+            this.router.navigate(['/contas']);
           },
           error: (err) => console.error('Erro ao atualizar', err),
         });
       } else {
         this.billService.create(bill).subscribe({
-          next: (newBill) => {
-            console.log('Conta criada com sucesso:', newBill);
-            this.form.reset();
+          next: () => {
+            this.router.navigate(['/contas']);
           },
           error: (err) => console.error('Erro ao salvar', err),
         });

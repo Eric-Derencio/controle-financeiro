@@ -15,7 +15,15 @@ export const routes: Routes = [
     },
     {
       path: 'receita',
-      loadComponent: () => import('./domain/revenues/revenue/revenue').then(m => m.Revenue)
+      loadComponent: () => import('./domain/revenues/containers/revenue-list/revenue-list').then(m => m.RevenueList)
+    },
+    {
+      path: 'receita/novo',
+      loadComponent: () => import('./domain/revenues/containers/revenue-form/revenue-form').then(m => m.RevenueForm)
+    },
+    {
+      path: 'receita/:id/editar',
+      loadComponent: () => import('./domain/revenues/containers/revenue-form/revenue-form').then(m => m.RevenueForm)
     },
     {
       path: 'contas',
