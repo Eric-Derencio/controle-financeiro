@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 350px;
+  max-width: 500px;
+  padding-top: 8px;
+
+  .full-width {
+    width: 100%;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  mat-checkbox {
+    margin-top: 4px;
+  }
+}
+
+mat-dialog-actions {
+  padding: 12px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  button:first-child {
+    color: var(--mat-sys-on-surface-variant, #666);
+  }
+}

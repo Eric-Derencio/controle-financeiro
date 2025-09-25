@@ -1,0 +1,68 @@
+<div class="projection-table">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-width">
+
+    <!-- Mês -->
+    <ng-container matColumnDef="mes">
+      <th mat-header-cell *matHeaderCellDef>Mês</th>
+      <td mat-cell *matCellDef="let row">{{ row.mesLabel }}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- Colunas dinâmicas para cada conta -->
+    @for (bill of allBills; track bill.id) {
+  <ng-container [matColumnDef]="colId(bill.id!)">
+    <th mat-header-cell *matHeaderCellDef>
+      {{ bill.descricao }}
+      <span *ngIf="bill.valorVariavel" style="opacity:0.7; font-size:12px;">(var)</span>
+    </th>
+
+    <td mat-cell *matCellDef="let row">
+      <div class="cell-content" tabindex="0" (click)="openEdit(row.mes, bill)" (keydown.enter)="openEdit(row.mes, bill)" (keydown.space)="openEdit(row.mes, bill)" matTooltip="Clique para editar">
+        @if (bill.id !== undefined && row.values[bill.id] && row.values[bill.id]?.valor !== null) {
+          <span [ngClass]="{ 'paid': isPaid(row.values[bill.id]) }">
+            R$ {{ row.values[bill.id]?.valor | number: '1.2-2' }}
+          </span>
+        } @else {
+          <span class="empty-cell">—</span>
+        }
+      </div>
+    </td>
+
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+}
+
+
+
+    <!-- Débitos (soma da linha) -->
+    <ng-container matColumnDef="debitos">
+      <th mat-header-cell *matHeaderCellDef>Débitos</th>
+      <td mat-cell *matCellDef="let row">
+        <b>R$ {{ row.totalDebitos | number: '1.2-2' }}</b>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- Receita (fixa) -->
+    <ng-container matColumnDef="receita">
+      <th mat-header-cell *matHeaderCellDef>Receita</th>
+      <td mat-cell *matCellDef="let row">
+        <b>R$ {{ receitaTotal | number: '1.2-2' }}</b>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- Saldo -->
+    <ng-container matColumnDef="saldo">
+      <th mat-header-cell *matHeaderCellDef>Saldo</th>
+      <td mat-cell *matCellDef="let row">
+        <b [ngClass]="{ 'negative': row.saldo < 0 }">R$ {{ row.saldo | number: '1.2-2' }}</b>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

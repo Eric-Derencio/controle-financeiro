@@ -1,0 +1,18 @@
+.full-width { width: 100%; }
+
+.projection-table {
+  margin: 16px;
+  .cell-content {
+    cursor: pointer;
+  }
+  .empty-cell {
+    color: #999;
+  }
+  .paid {
+    color: green;
+    font-weight: 600;
+  }
+  .negative {
+    color: #c62828;
+  }
+}
