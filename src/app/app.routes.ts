@@ -11,7 +11,7 @@ export const routes: Routes = [
     },
     {
       path: 'projecoes',
-      loadComponent: () => import('./domain/projections/projection/projection').then(m => m.Projection)
+      loadComponent: () => import('./domain/projections/container/projection-table/projection-table').then(m => m.ProjectionTable)
     },
     {
       path: 'receita',
