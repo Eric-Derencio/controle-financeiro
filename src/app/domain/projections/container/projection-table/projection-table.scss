@@ -1,18 +1,71 @@
-.full-width { width: 100%; }
+.full-width {
+  width: 100%;
+}
 
 .projection-table {
   margin: 16px;
+
   .cell-content {
     cursor: pointer;
   }
+
   .empty-cell {
     color: #999;
   }
+
   .paid {
     color: green;
     font-weight: 600;
   }
+
   .negative {
     color: #c62828;
+  }
+
+  .fixed-bill {
+    background-color: #575650;
+    color: #fff !important;
+  }
+
+  // 🔹 Coluna Mês
+  .mat-column-mes {
+    background-color: #f5f5f5; // cinza claro
+    font-weight: 600;
+  }
+
+
+  // 🔹 Coluna Débitos (despesas)
+  .mat-column-debitos {
+    background-color: #c62828; // vermelho forte
+    color: #fff !important;   // texto branco
+
+    b {
+      color: #c62828 !important; // valores em vermelho
+      background: #fff;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+  }
+
+  // 🔹 Coluna Receita
+  .mat-column-receita {
+    background-color: #c8e6c9; // verde claro
+    color: #000 !important;    // texto preto
+
+    b {
+      color: #2e7d32 !important; // valores em verde
+    }
+  }
+
+  // 🔹 Coluna Saldo
+  .mat-column-saldo {
+    background-color: #e0f0ff; // azul clarinho
+    font-weight: 600;
+  }
+
+  th.mat-header-cell,
+  td.mat-cell,
+  td.mat-footer-cell {
+    border-right: 1px solid #ddd;
   }
 }

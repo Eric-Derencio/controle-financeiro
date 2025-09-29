@@ -79,12 +79,12 @@
       "id": 4
     },
     {
+      "id": 5,
       "mes": "2025-09",
       "contaId": 2,
-      "valor": null,
-      "pago": false,
-      "observacao": "",
-      "id": 5
+      "valor": 150,
+      "pago": true,
+      "observacao": "teste"
     },
     {
       "mes": "2025-09",
