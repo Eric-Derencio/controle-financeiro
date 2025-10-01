@@ -3,5 +3,4 @@ export interface RevenueModel {
   descricao: string;
   valor: number;
   dataRecebimento: string;
-  observacao?: string;
 }

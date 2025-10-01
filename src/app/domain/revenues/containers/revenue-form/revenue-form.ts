@@ -50,7 +50,6 @@ private fb = inject(FormBuilder);
             descricao: revenue.descricao,
             dataRecebimento: revenue.dataRecebimento,
             valor: revenue.valor,
-            observacao: revenue.observacao || '',
           });
         });
       } else {

@@ -1,64 +1,12 @@
 <div class="revenue-list">
-  <div class="toolbar">
-    <button mat-raised-button color="primary" (click)="addRevenue()">
-      <mat-icon>add</mat-icon>
-      Nova Receita
-    </button>
-  </div>
-
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-width">
-
-    <!-- Descrição -->
-    <ng-container matColumnDef="descricao">
-      <th mat-header-cell *matHeaderCellDef>Descrição</th>
-      <td mat-cell *matCellDef="let revenue">{{ revenue.descricao }}</td>
-      <td mat-footer-cell *matFooterCellDef>Total</td>
-    </ng-container>
-
-    <!-- Data Recebimento -->
-    <ng-container matColumnDef="dataRecebimento">
-      <th mat-header-cell *matHeaderCellDef>Recebimento</th>
-      <td mat-cell *matCellDef="let revenue">
-        {{ revenue.dataRecebimento | date: 'dd/MM/yyyy' }}
-      </td>
-      <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container>
-
-    <!-- Valor -->
-    <ng-container matColumnDef="valor">
-      <th mat-header-cell *matHeaderCellDef>Valor</th>
-      <td mat-cell *matCellDef="let revenue">
-        R$ {{ revenue.valor | number: '1.2-2' }}
-      </td>
-      <td mat-footer-cell *matFooterCellDef>
-        <b>R$ {{ total | number: '1.2-2' }}</b>
-      </td>
-    </ng-container>
-
-    <!-- Observação -->
-    <ng-container matColumnDef="observacao">
-      <th mat-header-cell *matHeaderCellDef>Observação</th>
-      <td mat-cell *matCellDef="let revenue">{{ revenue.observacao }}</td>
-      <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container>
-
-    <!-- Ações -->
-    <ng-container matColumnDef="acoes">
-      <th mat-header-cell *matHeaderCellDef>Ações</th>
-      <td mat-cell *matCellDef="let revenue">
-        <button mat-icon-button color="primary" (click)="editRevenue(revenue)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="deleteRevenue(revenue)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-      <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container>
-
-    <!-- Cabeçalho, Linhas e Rodapé -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-  </table>
+ <app-data-table
+  [data]="revenues"
+  [columns]="tableColumns"
+  buttonText="Nova Receita"
+  [showFooter]="true"
+  [total]="total"
+  (add)="addRevenue()"
+  (edit)="editRevenue($event)"
+  (delete)="deleteRevenue($event)"
+></app-data-table>
 </div>

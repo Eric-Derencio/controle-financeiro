@@ -34,14 +34,12 @@
       "descricao": "Salário",
       "dataRecebimento": "2025-09-01",
       "valor": 6000,
-      "observacao": "Mensal fixo",
       "id": 1
     },
     {
       "descricao": "Teste",
       "dataRecebimento": "2001-01-17T02:00:00.000Z",
       "valor": 250,
-      "observacao": "Teste",
       "id": 2
     }
   ],
