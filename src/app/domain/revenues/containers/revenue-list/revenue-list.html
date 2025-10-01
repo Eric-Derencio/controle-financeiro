@@ -1,12 +1,12 @@
 <div class="revenue-list">
- <app-data-table
-  [data]="revenues"
-  [columns]="tableColumns"
-  buttonText="Nova Receita"
-  [showFooter]="true"
-  [total]="total"
-  (add)="addRevenue()"
-  (edit)="editRevenue($event)"
-  (delete)="deleteRevenue($event)"
-></app-data-table>
+  <app-data-table
+    [data]="revenues"
+    [columns]="tableColumns"
+    buttonText="Nova Receita"
+    [showFooter]="true"
+    [total]="total"
+    (add)="addRevenue()"
+    (edit)="editRevenue($event)"
+    (delete)="deleteRevenue($event)"
+  ></app-data-table>
 </div>

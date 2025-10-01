@@ -1,43 +1,45 @@
-<section class="title">
-  @if(id){
-  <h1>Editar conta de {{form.get('descricao')?.value}}</h1>
-  }@else {
-  <h1>Adicionar nova Conta</h1>
-  }
-</section>
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="bill-form">
+<div class="form-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        @if(isEditing){
+        <h1>Editar conta de {{form.get('descricao')?.value}}</h1>
+        }@else {
+        <h1>Adicionar nova Conta</h1>
+        }
+      </mat-card-title>
+    </mat-card-header>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Descrição</mat-label>
-    <input matInput formControlName="descricao" placeholder="Ex: Água, Luz..." />
-  </mat-form-field>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="bill-form">
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Data de Vencimento</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="dataVencimento" placeholder="Selecione a data" />
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descrição</mat-label>
+          <input matInput formControlName="descricao" placeholder="Ex: Água, Luz..." />
+        </mat-form-field>
 
-  <mat-checkbox formControlName="valorVariavel">Valor variável?</mat-checkbox>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Data de Vencimento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dataVencimento" placeholder="Selecione a data" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
-  @if (!form.get('valorVariavel')?.value) {
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Valor</mat-label>
-    <input matInput type="number" formControlName="valor" placeholder="0.00" />
-  </mat-form-field>
-  }
+        <mat-checkbox formControlName="valorVariavel">Valor variável?</mat-checkbox>
 
-  <div class="actions">
-    @if(this.id){
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
-      Editar
-    </button>
-    }@else {
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
-      Salvar
-    </button>
-    }
-    <button mat-button type="button" (click)="cancel()">Cancelar</button>
-  </div>
-</form>
+        @if (!valorVariavel) {
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Valor</mat-label>
+            <input matInput type="number" formControlName="valor" placeholder="0.00" />
+          </mat-form-field>
+        }
+
+        <mat-card-actions align="end">
+          <button mat-raised-button type="button" class="cancel" (click)="cancel()">Cancelar</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">{{ isEditing ? 'Editar' : 'Salvar' }}</button>
+
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

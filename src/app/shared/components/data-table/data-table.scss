@@ -1,0 +1,24 @@
+.data-table-container {
+  margin: 16px;
+}
+
+.toolbar {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+.mat-mdc-header-cell {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mat-mdc-row:hover {
+  background-color: var(--mat-sys-surface-container-high);
+}
+
+.mat-mdc-header-cell,
+.mat-mdc-cell,
+.mat-mdc-footer-cell {
+  text-align: center;
+  justify-content: center;
+}

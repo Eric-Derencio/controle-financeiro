@@ -1,7 +1,7 @@
 export interface BillModel {
   id?: number;
-  descricao: string;
-  dataVencimento: string;
-  valorVariavel: boolean;
-  valor?: number;
+  valor: number | null;
+  descricao: string | null;
+  dataVencimento: string | null;
+  valorVariavel: boolean | null;
 }

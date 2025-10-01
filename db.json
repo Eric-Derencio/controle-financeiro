@@ -13,20 +13,6 @@
       "valorVariavel": true,
       "valor": "",
       "id": 2
-    },
-    {
-      "descricao": "Cartão",
-      "dataVencimento": "2025-09-26T03:00:00.000Z",
-      "valorVariavel": true,
-      "valor": "",
-      "id": 3
-    },
-    {
-      "descricao": "Comida",
-      "dataVencimento": "2025-09-22T03:00:00.000Z",
-      "valorVariavel": false,
-      "valor": 1234,
-      "id": 4
     }
   ],
   "revenue": [
@@ -485,12 +471,12 @@
       "id": 55
     },
     {
+      "id": 56,
       "mes": "2025-10",
       "contaId": 2,
       "valor": null,
       "pago": false,
-      "observacao": "",
-      "id": 56
+      "observacao": ""
     },
     {
       "mes": "2025-10",

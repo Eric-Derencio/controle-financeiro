@@ -1,13 +1,9 @@
-.full-width {
-  width: 100%;
-}
-
 .bill-list {
-  margin: 20px;
+  margin: 24px;
 }
 
-.toolbar {
-  display: flex;
-  justify-content: flex-end; /* ✅ joga o botão para a direita */
-  margin-bottom: 16px; /* espaço entre botão e tabela */
+.bill-list app-data-table {
+  display: block;
+  max-width: 85rem;
+  margin: 0 auto;
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -10,6 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { BillService } from '../../services/bill-service';
 import { BillModel } from '../../models/Bill';
 import { ActivatedRoute, Router } from '@angular/router';
+import { firstValueFrom, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { MatCardModule } from '@angular/material/card';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-bill-form',
@@ -20,15 +23,20 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatButtonModule,],
+    MatButtonModule,
+    MatCardModule,
+    MatSnackBarModule
+  ],
   templateUrl: './bill-form.html',
   styleUrl: './bill-form.scss'
 })
-export class BillForm implements OnInit {
+export class BillForm implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private billService = inject(BillService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+  private destroyed$ = new Subject<void>();
 
   id: number | null = null;
 
@@ -36,63 +44,96 @@ export class BillForm implements OnInit {
     descricao: ['', Validators.required],
     dataVencimento: ['', Validators.required],
     valorVariavel: [false],
-    valor: [''], // inicia sem validator fixo
+    valor: [''],
   });
 
+  get isEditing(): boolean {
+    return this.id !== null;
+  }
+  get valorVariavel(): boolean {
+    return this.form.get('valorVariavel')?.value ?? false;
+  }
+
   ngOnInit(): void {
-    this.form.get('valorVariavel')?.valueChanges.subscribe((isVariavel: boolean | null) => {
+    this.loadDataForEdit();
+    this.setupDynamicValidators();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
+  private setupDynamicValidators(): void {
+    this.form.get('valorVariavel')?.valueChanges.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe(isVariavel => {
       const valorControl = this.form.get('valor');
       if (!isVariavel) {
-        valorControl?.addValidators(Validators.required);
+        valorControl?.setValidators(Validators.required);
       } else {
         valorControl?.clearValidators();
       }
       valorControl?.updateValueAndValidity();
     });
+  }
 
-    this.route.paramMap.subscribe((params) => {
-      const paramId = params.get('id');
-      this.id = paramId ? +paramId : null;
-
-      if (this.id) {
-        this.billService.getById(this.id).subscribe((bill) => {
-          this.form.patchValue({
-            descricao: bill.descricao,
-            dataVencimento: bill.dataVencimento,
-            valorVariavel: bill.valorVariavel,
-            valor: bill.valor !== undefined && bill.valor !== null ? bill.valor.toString() : '',
-          });
+  private loadDataForEdit(): void {
+    this.route.paramMap.pipe(
+      takeUntil(this.destroyed$),
+      switchMap(params => {
+        const paramId = params.get('id');
+        this.id = paramId ? +paramId : null;
+        return this.id ? this.billService.getById(this.id) : of(null);
+      })
+    ).subscribe(bill => {
+      if (bill) {
+        this.form.patchValue({
+          ...bill,
+          valor: bill.valor?.toString()
         });
       } else {
-        this.form.reset({
-          descricao: '',
-          dataVencimento: '',
-          valorVariavel: false,
-          valor: '',
-        });
+        this.form.reset({ valorVariavel: false });
       }
     });
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      const bill: BillModel = this.form.value as BillModel;
+  private buildBillFromForm(): BillModel {
+    const formValue = this.form.getRawValue();
+    return {
+      ...formValue,
+      valor: formValue.valorVariavel ? null : +formValue.valor!
+    };
+  }
 
-      if (this.id) {
-        this.billService.update(this.id, bill).subscribe({
-          next: () => {
-            this.router.navigate(['/contas']);
-          },
-          error: (err) => console.error('Erro ao atualizar', err),
+  async onSubmit() {
+    if (this.form.invalid) return;
+
+    const bill = this.buildBillFromForm();
+
+    try {
+      if (this.isEditing) {
+        await firstValueFrom(this.billService.update(this.id!, bill));
+        this.snackBar.open('Conta atualizada com sucesso!', 'Fechar', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
         });
       } else {
-        this.billService.create(bill).subscribe({
-          next: () => {
-            this.router.navigate(['/contas']);
-          },
-          error: (err) => console.error('Erro ao salvar', err),
+        await firstValueFrom(this.billService.create(bill));
+        this.snackBar.open('Conta criada com sucesso!', 'Fechar', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
         });
       }
+
+      this.router.navigate(['/contas']);
+
+    } catch (err) {
+      console.error('Falha ao salvar a conta', err);
+      this.snackBar.open('Erro ao salvar a conta', 'Fechar', {
+        duration: 3000,
+        panelClass: ['snackbar-error']
+      });
     }
   }
 

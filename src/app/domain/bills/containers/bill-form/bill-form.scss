@@ -1,23 +1,46 @@
+.form-container {
+  margin: 32px auto;
+  max-width: 500px;
+  padding: 0 16px;
+}
+
+.mat-mdc-card-header {
+  justify-content: center;
+}
+
+.mat-mdc-card-title h1 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--mat-sys-primary);
+}
+
 .bill-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: 400px;
-  margin: auto;
-  padding: 24px;
-}
-.title{
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  gap: 12px;
 }
 
 .full-width {
   width: 100%;
 }
 
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+.mat-mdc-card-actions {
+  padding: 16px 24px;
+  gap: 8px;
 }
+
+.cancel{
+  color: var(--mat-sys-error) !important;
+  background-color: var(--mat-sys-error-container)!important;
+}
+
+.snackbar-success {
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+}
+
+.snackbar-error {
+  background-color: var(--mat-sys-error-container);
+  color: var(--mat-sys-error);
+}
+

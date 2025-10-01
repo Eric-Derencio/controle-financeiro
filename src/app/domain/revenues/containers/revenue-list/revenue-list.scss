@@ -1,13 +1,9 @@
-.full-width {
-  width: 100%;
-}
-
 .revenue-list {
-  margin: 20px;
+  margin: 24px;
 }
 
-.toolbar {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
+.revenue-list app-data-table {
+  display: block;
+  max-width: 85rem;
+  margin: 0 auto;
 }
