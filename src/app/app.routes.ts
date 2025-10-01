@@ -14,15 +14,15 @@ export const routes: Routes = [
       loadComponent: () => import('./domain/projections/container/projection-table/projection-table').then(m => m.ProjectionTable)
     },
     {
-      path: 'receita',
+      path: 'receitas',
       loadComponent: () => import('./domain/revenues/containers/revenue-list/revenue-list').then(m => m.RevenueList)
     },
     {
-      path: 'receita/novo',
+      path: 'receitas/novo',
       loadComponent: () => import('./domain/revenues/containers/revenue-form/revenue-form').then(m => m.RevenueForm)
     },
     {
-      path: 'receita/:id/editar',
+      path: 'receitas/:id/editar',
       loadComponent: () => import('./domain/revenues/containers/revenue-form/revenue-form').then(m => m.RevenueForm)
     },
     {

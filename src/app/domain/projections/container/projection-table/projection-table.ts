@@ -11,7 +11,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProjectionService } from '../../service/projection.service';
 import { BillModel } from '../../../bills/models/Bill';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, forkJoin } from 'rxjs';
 import { ProjectionEditDialog } from '../../components/projection-edit-dialog/projection-edit-dialog';
 
 @Component({
@@ -32,7 +32,20 @@ export class ProjectionTable implements OnInit {
   private projectionService = inject(ProjectionService);
   private dialog = inject(MatDialog);
 
-  monthsCount = 12;
+  private readonly MONTHS = [
+    { numero: 1, nome: 'Janeiro' },
+    { numero: 2, nome: 'Fevereiro' },
+    { numero: 3, nome: 'Março' },
+    { numero: 4, nome: 'Abril' },
+    { numero: 5, nome: 'Maio' },
+    { numero: 6, nome: 'Junho' },
+    { numero: 7, nome: 'Julho' },
+    { numero: 8, nome: 'Agosto' },
+    { numero: 9, nome: 'Setembro' },
+    { numero: 10, nome: 'Outubro' },
+    { numero: 11, nome: 'Novembro' },
+    { numero: 12, nome: 'Dezembro' }
+  ];
   dataSource = new MatTableDataSource<{
     mes: string;
     mesLabel: string;
@@ -52,81 +65,70 @@ export class ProjectionTable implements OnInit {
   rows: {
     mes: string;
     mesLabel: string;
-    values: Record<number, ProjectionModel| undefined>;
+    values: Record<number, ProjectionModel | undefined>;
     totalDebitos: number;
     saldo: number;
   }[] = [];
 
-  ngOnInit(){
-    this.init();
+  async ngOnInit() {
+    await this.loadInitialData();
+    await this.syncProjections();
+    await this.loadAndBuildTable();
   }
 
-  async init(){
-    await this.ensureProjectionsAndLoad();
-  }
-
-  private generateMonths(start = new Date(), count = 12): string[] {
-      const arr: string[] = [];
-      const d = new Date(start.getFullYear(), start.getMonth(), 1);
-      for (let i = 0; i < count; i++) {
-        const y = d.getFullYear();
-        const m = d.getMonth() + 1;
-        arr.push(`${y}-${m.toString().padStart(2, '0')}`); // YYYY-MM
-        d.setMonth(d.getMonth() + 1);
-      }
-      return arr;
-  }
-
-  private monthLabelFromYYYYMM(mes: string): string {
-    const [y, mm] = mes.split('-');
-    const date = new Date(+y, +mm - 1, 1);
-    return date.toLocaleString(undefined, { month: 'short', year: 'numeric' });
-  }
-
-  private async ensureProjectionsAndLoad() {
-    // 1) carregar bills e receita total
+  private async loadInitialData() {
     this.bills = await firstValueFrom(this.billService.getAll());
     const revenues = await firstValueFrom(this.revenueService.getAll());
     this.receitaTotal = revenues.reduce((s, r) => s + (r.valor ?? 0), 0);
 
-    // separar fixas x variáveis
     this.fixedBills = this.bills.filter(b => !b.valorVariavel);
     this.variableBills = this.bills.filter(b => !!b.valorVariavel);
+  }
 
-    // 2) gerar meses
-    const months = this.generateMonths(new Date(), this.monthsCount);
+  private async syncProjections() {
+    const currentYear = new Date().getFullYear();
+    const months = this.generateYearMonths(currentYear);
 
-    // 3) buscar projeções existentes
-    const existingProjs = await firstValueFrom(this.projectionService.getAll());
+    const existing = await firstValueFrom(this.projectionService.getAll());
+    const missing: ProjectionModel[] = [];
 
-    // 4) criar registros faltantes (sincronizar)
-    // percorre meses x bills, para cada combinação garante um registro
     for (const mes of months) {
       for (const bill of this.bills) {
-        const found = existingProjs.find(p => p.mes === mes && p.contaId === bill.id);
+        const found = existing.find(p => p.mes === mes && p.contaId === bill.id);
         if (!found) {
-          const valor = bill.valorVariavel ? null : (bill.valor ?? null);
-          // criar registro
-          // note: fazemos chamadas sequenciais simples (aceitável para small dataset)
-          // se preferir, acumule observables e use forkJoin para paralelizar
-          // mas sequencial garante orden e evita rate limits em dev
-          await firstValueFrom(this.projectionService.create({
+          missing.push({
             mes,
             contaId: bill.id!,
-            valor,
+            valor: bill.valorVariavel ? null : (bill.valor ?? null),
             pago: false,
             observacao: ''
-          }));
+          });
         }
       }
     }
 
-    // 5) recarregar projeções (agora já completas)
+    if (missing.length > 0) {
+      await firstValueFrom(forkJoin(missing.map(m => this.projectionService.create(m))));
+    }
+  }
+
+  private async loadAndBuildTable() {
+    const currentYear = new Date().getFullYear();
+    const months = this.generateYearMonths(currentYear);
     const allProjs = await firstValueFrom(this.projectionService.getAll());
 
-    // 6) montar pivot rows (linhas por mês)
     this.buildTableData(months, allProjs);
   }
+
+  private generateYearMonths(year: number): string[] {
+    return this.MONTHS.map(m => `${year}-${m.numero.toString().padStart(2, '0')}`);
+  }
+
+  private monthLabelFromYYYYMM(mes: string): string {
+    const [, mm] = mes.split('-');
+    return this.MONTHS[+mm - 1].nome; // acessa pelo número do mês
+  }
+
 
   private buildTableData(months: string[], allProjs: ProjectionModel[]) {
     // construir displayedColumns: coluna MES + cada bill (ordem: fixas primeiro, depois variáveis) + debitos + receita + saldo

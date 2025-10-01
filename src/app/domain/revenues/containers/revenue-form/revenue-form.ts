@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -9,6 +9,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RevenueService } from '../../services/revenue-service';
 import { RevenueModel } from '../../models/revenue';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { firstValueFrom, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { MatCardModule } from "@angular/material/card";
+
 
 
 
@@ -20,15 +24,20 @@ import { RevenueModel } from '../../models/revenue';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatButtonModule,],
+    MatButtonModule,
+    MatSnackBarModule,
+    MatCardModule,
+  ],
   templateUrl: './revenue-form.html',
   styleUrl: './revenue-form.scss'
 })
-export class RevenueForm implements OnInit {
-private fb = inject(FormBuilder);
+export class RevenueForm implements OnInit,OnDestroy {
+  private fb = inject(FormBuilder);
   private revenueService = inject(RevenueService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+  private destroyed$ = new Subject<void>();
 
   id: number | null = null;
 
@@ -39,46 +48,71 @@ private fb = inject(FormBuilder);
     observacao: [''],
   });
 
+  get isEditing(): boolean {
+    return this.id !== null;
+  }
+
+
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
+    this.loadDataForEdit();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
+  private loadDataForEdit():void {
+    this.route.paramMap.pipe(takeUntil(this.destroyed$),switchMap(params =>{
       const paramId = params.get('id');
       this.id = paramId ? +paramId : null;
-
-      if (this.id) {
-        this.revenueService.getById(this.id).subscribe((revenue) => {
-          this.form.patchValue({
-            descricao: revenue.descricao,
-            dataRecebimento: revenue.dataRecebimento,
-            valor: revenue.valor,
-          });
-        });
-      } else {
-        this.form.reset({
-          descricao: '',
-          dataRecebimento: '',
-          valor: 0,
-          observacao: '',
-        });
+      return this.id? this.revenueService.getById(this.id): of(null);
+    })).subscribe(revenue => {
+      if(revenue){
+        this.form.patchValue({
+          ...revenue
+        })
+      }else{
+        this.form.reset();
       }
     });
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      const revenue: RevenueModel = this.form.value as RevenueModel;
+  private buildRevenueFromForm():RevenueModel{
+    const formValue = this.form.getRawValue();
+    return{
+      ...formValue
+    }
+  }
 
-      if (this.id) {
-        this.revenueService.update(this.id, revenue).subscribe({
-          next: () => this.router.navigate(['/receita']),
-          error: (err) => console.error('Erro ao atualizar receita', err),
+
+  async onSubmit() {
+    if (this.form.invalid) return;
+
+    const revenue = this.buildRevenueFromForm();
+
+    try{
+      if(this.isEditing){
+        await firstValueFrom(this.revenueService.update(this.id!,revenue));
+        this.snackBar.open('Conta atualizada com sucesso!', 'Fechar', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
         });
       } else {
-        this.revenueService.create(revenue).subscribe({
-          next: () => this.router.navigate(['/receita']),
-          error: (err) => console.error('Erro ao salvar receita', err),
+        await firstValueFrom(this.revenueService.create(revenue));
+        this.snackBar.open('Conta criada com sucesso!', 'Fechar', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
         });
       }
+    } catch (err){
+      console.error('Falha ao salvar Receita',err);
+      this.snackBar.open('Erro ao salvar a conta', 'Fechar', {
+        duration: 3000,
+        panelClass: ['snackbar-error']
+      });
     }
+    this.router.navigate(['/receitas']);
   }
 
   cancel() {

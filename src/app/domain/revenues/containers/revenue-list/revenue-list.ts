@@ -40,17 +40,17 @@ export class RevenueList implements OnInit {
   loadRevenues() {
     this.revenueService.getAll().subscribe((revenues) => {
       this.revenues = revenues;
-      this.total = revenues.reduce((acc, r) => acc + r.valor, 0);
+      this.total = revenues.reduce((acc, r) => acc + (r.valor ?? 0), 0);
       this.cdr.detectChanges();
     });
   }
 
   addRevenue() {
-    this.router.navigate(['/receita/novo']);
+    this.router.navigate(['/receitas/novo']);
   }
 
   editRevenue(revenue: RevenueModel) {
-    this.router.navigate(['/receita', revenue.id, 'editar']);
+    this.router.navigate(['/receitas', revenue.id, 'editar']);
   }
 
   deleteRevenue(revenue: RevenueModel) {

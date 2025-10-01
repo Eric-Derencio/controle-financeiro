@@ -14,7 +14,7 @@
   }
 
   .paid {
-    color: green;
+    color:  #2e7d32;
     font-weight: 600;
   }
 
@@ -23,14 +23,14 @@
   }
 
   .fixed-bill {
-    background-color: #575650;
-    color: #fff !important;
+    background-color: var(-mat-sys-secondary-container);
+    color: var(-mat-sys-on-secondary-container);
   }
 
   // 🔹 Coluna Mês
   .mat-column-mes {
-    background-color: #f5f5f5; // cinza claro
-    font-weight: 600;
+    background-color: var(--mat-sys-primary-container); // cinza claro
+    color: black;
   }
 
 
@@ -38,28 +38,20 @@
   .mat-column-debitos {
     background-color: #c62828; // vermelho forte
     color: #fff !important;   // texto branco
-
-    b {
-      color: #c62828 !important; // valores em vermelho
-      background: #fff;
-      padding: 2px 4px;
-      border-radius: 4px;
-    }
   }
 
   // 🔹 Coluna Receita
-  .mat-column-receita {
+  .mat-column-receita- {
     background-color: #c8e6c9; // verde claro
-    color: #000 !important;    // texto preto
 
     b {
-      color: #2e7d32 !important; // valores em verde
+      color: #2e7d32 !important;
     }
   }
 
   // 🔹 Coluna Saldo
   .mat-column-saldo {
-    background-color: #e0f0ff; // azul clarinho
+    background-color: #e0f0ff;
     font-weight: 600;
   }
 

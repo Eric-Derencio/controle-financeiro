@@ -8,11 +8,18 @@
       "id": 1
     },
     {
-      "descricao": "Água",
-      "dataVencimento": "2025-09-30",
+      "descricao": "Agua",
+      "dataVencimento": "2025-10-02T03:00:00.000Z",
       "valorVariavel": true,
-      "valor": "",
+      "valor": null,
       "id": 2
+    },
+    {
+      "descricao": "Outros",
+      "dataVencimento": "2025-10-01T03:00:00.000Z",
+      "valorVariavel": true,
+      "valor": null,
+      "id": 3
     }
   ],
   "revenue": [
@@ -21,25 +28,19 @@
       "dataRecebimento": "2025-09-01",
       "valor": 6000,
       "id": 1
-    },
-    {
-      "descricao": "Teste",
-      "dataRecebimento": "2001-01-17T02:00:00.000Z",
-      "valor": 250,
-      "id": 2
     }
   ],
   "projecoes": [
     {
-      "mes": "2025-09",
+      "id": 1,
+      "mes": "2025-01",
       "contaId": 1,
       "valor": 130,
-      "pago": false,
-      "observacao": "",
-      "id": 1
+      "pago": true,
+      "observacao": ""
     },
     {
-      "mes": "2026-01",
+      "mes": "2025-06",
       "contaId": 1,
       "valor": 130,
       "pago": false,
@@ -47,47 +48,47 @@
       "id": 2
     },
     {
-      "mes": "2026-01",
-      "contaId": 2,
-      "valor": null,
+      "mes": "2025-07",
+      "contaId": 1,
+      "valor": 130,
       "pago": false,
       "observacao": "",
       "id": 3
     },
     {
-      "mes": "2026-01",
-      "contaId": 3,
-      "valor": null,
+      "mes": "2025-02",
+      "contaId": 1,
+      "valor": 130,
       "pago": false,
       "observacao": "",
       "id": 4
     },
     {
-      "id": 5,
-      "mes": "2025-09",
-      "contaId": 2,
-      "valor": 150,
-      "pago": true,
-      "observacao": "teste"
+      "mes": "2025-03",
+      "contaId": 1,
+      "valor": 130,
+      "pago": false,
+      "observacao": "",
+      "id": 5
     },
     {
-      "mes": "2025-09",
-      "contaId": 3,
-      "valor": null,
+      "mes": "2025-08",
+      "contaId": 1,
+      "valor": 130,
       "pago": false,
       "observacao": "",
       "id": 6
     },
     {
-      "mes": "2026-01",
-      "contaId": 4,
-      "valor": 1234,
+      "mes": "2025-09",
+      "contaId": 1,
+      "valor": 130,
       "pago": false,
       "observacao": "",
       "id": 7
     },
     {
-      "mes": "2026-02",
+      "mes": "2025-10",
       "contaId": 1,
       "valor": 130,
       "pago": false,
@@ -95,31 +96,31 @@
       "id": 8
     },
     {
-      "mes": "2026-02",
-      "contaId": 2,
-      "valor": null,
+      "mes": "2025-11",
+      "contaId": 1,
+      "valor": 130,
       "pago": false,
       "observacao": "",
       "id": 9
     },
     {
-      "mes": "2026-02",
-      "contaId": 3,
-      "valor": null,
+      "mes": "2025-04",
+      "contaId": 1,
+      "valor": 130,
       "pago": false,
       "observacao": "",
       "id": 10
     },
     {
-      "mes": "2026-02",
-      "contaId": 4,
-      "valor": 1234,
+      "mes": "2025-05",
+      "contaId": 1,
+      "valor": 130,
       "pago": false,
       "observacao": "",
       "id": 11
     },
     {
-      "mes": "2026-03",
+      "mes": "2025-12",
       "contaId": 1,
       "valor": 130,
       "pago": false,
@@ -127,7 +128,7 @@
       "id": 12
     },
     {
-      "mes": "2026-03",
+      "mes": "2025-01",
       "contaId": 2,
       "valor": null,
       "pago": false,
@@ -135,31 +136,31 @@
       "id": 13
     },
     {
-      "mes": "2026-03",
-      "contaId": 3,
+      "mes": "2025-02",
+      "contaId": 2,
       "valor": null,
       "pago": false,
       "observacao": "",
       "id": 14
     },
     {
-      "mes": "2026-03",
-      "contaId": 4,
-      "valor": 1234,
+      "mes": "2025-08",
+      "contaId": 2,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 15
     },
     {
-      "mes": "2026-04",
-      "contaId": 1,
-      "valor": 130,
+      "mes": "2025-09",
+      "contaId": 2,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 16
     },
     {
-      "mes": "2026-04",
+      "mes": "2025-10",
       "contaId": 2,
       "valor": null,
       "pago": false,
@@ -167,31 +168,31 @@
       "id": 17
     },
     {
-      "mes": "2026-04",
-      "contaId": 3,
+      "mes": "2025-11",
+      "contaId": 2,
       "valor": null,
       "pago": false,
       "observacao": "",
       "id": 18
     },
     {
-      "mes": "2026-04",
-      "contaId": 4,
-      "valor": 1234,
+      "mes": "2025-12",
+      "contaId": 2,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 19
     },
     {
-      "mes": "2026-05",
-      "contaId": 1,
-      "valor": 130,
+      "mes": "2025-03",
+      "contaId": 2,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 20
     },
     {
-      "mes": "2026-05",
+      "mes": "2025-04",
       "contaId": 2,
       "valor": null,
       "pago": false,
@@ -199,31 +200,31 @@
       "id": 21
     },
     {
-      "mes": "2026-05",
-      "contaId": 3,
+      "mes": "2025-05",
+      "contaId": 2,
       "valor": null,
       "pago": false,
       "observacao": "",
       "id": 22
     },
     {
-      "mes": "2026-05",
-      "contaId": 4,
-      "valor": 1234,
+      "mes": "2025-07",
+      "contaId": 2,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 23
     },
     {
-      "mes": "2026-06",
-      "contaId": 1,
-      "valor": 130,
+      "mes": "2025-06",
+      "contaId": 2,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 24
     },
     {
-      "mes": "2026-06",
+      "mes": "2025-12",
       "contaId": 2,
       "valor": null,
       "pago": false,
@@ -231,39 +232,39 @@
       "id": 25
     },
     {
-      "mes": "2026-06",
-      "contaId": 3,
+      "mes": "2025-05",
+      "contaId": 2,
       "valor": null,
       "pago": false,
       "observacao": "",
       "id": 26
     },
     {
-      "mes": "2026-06",
-      "contaId": 4,
-      "valor": 1234,
+      "mes": "2025-04",
+      "contaId": 2,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 27
     },
     {
-      "mes": "2026-07",
-      "contaId": 1,
-      "valor": 130,
+      "mes": "2025-03",
+      "contaId": 2,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 28
     },
     {
-      "mes": "2026-07",
-      "contaId": 2,
-      "valor": null,
-      "pago": false,
-      "observacao": "",
-      "id": 29
+      "id": 29,
+      "mes": "2025-01",
+      "contaId": 3,
+      "valor": 150,
+      "pago": true,
+      "observacao": "Conta de internet 120.\nração do gato 30"
     },
     {
-      "mes": "2026-07",
+      "mes": "2025-02",
       "contaId": 3,
       "valor": null,
       "pago": false,
@@ -271,31 +272,31 @@
       "id": 30
     },
     {
-      "mes": "2026-07",
-      "contaId": 4,
-      "valor": 1234,
+      "mes": "2025-03",
+      "contaId": 3,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 31
     },
     {
-      "mes": "2026-08",
-      "contaId": 1,
-      "valor": 130,
+      "mes": "2025-04",
+      "contaId": 3,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 32
     },
     {
-      "mes": "2026-08",
-      "contaId": 2,
+      "mes": "2025-05",
+      "contaId": 3,
       "valor": null,
       "pago": false,
       "observacao": "",
       "id": 33
     },
     {
-      "mes": "2026-08",
+      "mes": "2025-06",
       "contaId": 3,
       "valor": null,
       "pago": false,
@@ -303,31 +304,31 @@
       "id": 34
     },
     {
-      "mes": "2026-08",
-      "contaId": 4,
-      "valor": 1234,
+      "mes": "2025-07",
+      "contaId": 3,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 35
     },
     {
-      "mes": "2026-09",
-      "contaId": 1,
-      "valor": 130,
+      "mes": "2025-08",
+      "contaId": 3,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 36
     },
     {
-      "mes": "2026-09",
-      "contaId": 2,
+      "mes": "2025-09",
+      "contaId": 3,
       "valor": null,
       "pago": false,
       "observacao": "",
       "id": 37
     },
     {
-      "mes": "2026-09",
+      "mes": "2025-10",
       "contaId": 3,
       "valor": null,
       "pago": false,
@@ -335,228 +336,36 @@
       "id": 38
     },
     {
-      "mes": "2026-09",
-      "contaId": 4,
-      "valor": 1234,
+      "mes": "2025-11",
+      "contaId": 3,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 39
     },
     {
-      "mes": "2026-10",
-      "contaId": 1,
-      "valor": 130,
+      "mes": "2025-12",
+      "contaId": 3,
+      "valor": null,
       "pago": false,
       "observacao": "",
       "id": 40
     },
     {
-      "mes": "2026-10",
-      "contaId": 2,
+      "mes": "2025-08",
+      "contaId": 3,
       "valor": null,
       "pago": false,
       "observacao": "",
       "id": 41
     },
     {
-      "mes": "2026-10",
+      "mes": "2025-07",
       "contaId": 3,
       "valor": null,
       "pago": false,
       "observacao": "",
       "id": 42
-    },
-    {
-      "mes": "2026-10",
-      "contaId": 4,
-      "valor": 1234,
-      "pago": false,
-      "observacao": "",
-      "id": 43
-    },
-    {
-      "mes": "2026-11",
-      "contaId": 1,
-      "valor": 130,
-      "pago": false,
-      "observacao": "",
-      "id": 44
-    },
-    {
-      "mes": "2026-11",
-      "contaId": 2,
-      "valor": null,
-      "pago": false,
-      "observacao": "",
-      "id": 45
-    },
-    {
-      "mes": "2026-11",
-      "contaId": 3,
-      "valor": null,
-      "pago": false,
-      "observacao": "",
-      "id": 46
-    },
-    {
-      "mes": "2026-11",
-      "contaId": 4,
-      "valor": 1234,
-      "pago": false,
-      "observacao": "",
-      "id": 47
-    },
-    {
-      "mes": "2026-12",
-      "contaId": 1,
-      "valor": 130,
-      "pago": false,
-      "observacao": "",
-      "id": 48
-    },
-    {
-      "mes": "2026-12",
-      "contaId": 2,
-      "valor": null,
-      "pago": false,
-      "observacao": "",
-      "id": 49
-    },
-    {
-      "mes": "2026-12",
-      "contaId": 3,
-      "valor": null,
-      "pago": false,
-      "observacao": "",
-      "id": 50
-    },
-    {
-      "mes": "2026-12",
-      "contaId": 4,
-      "valor": 1234,
-      "pago": false,
-      "observacao": "",
-      "id": 51
-    },
-    {
-      "mes": "2025-09",
-      "contaId": 4,
-      "valor": 1234,
-      "pago": false,
-      "observacao": "",
-      "id": 52
-    },
-    {
-      "mes": "2025-10",
-      "contaId": 1,
-      "valor": 130,
-      "pago": false,
-      "observacao": "",
-      "id": 53
-    },
-    {
-      "mes": "2025-09",
-      "contaId": 4,
-      "valor": 1234,
-      "pago": false,
-      "observacao": "",
-      "id": 54
-    },
-    {
-      "mes": "2025-10",
-      "contaId": 1,
-      "valor": 130,
-      "pago": false,
-      "observacao": "",
-      "id": 55
-    },
-    {
-      "id": 56,
-      "mes": "2025-10",
-      "contaId": 2,
-      "valor": null,
-      "pago": false,
-      "observacao": ""
-    },
-    {
-      "mes": "2025-10",
-      "contaId": 3,
-      "valor": null,
-      "pago": false,
-      "observacao": "",
-      "id": 57
-    },
-    {
-      "mes": "2025-10",
-      "contaId": 4,
-      "valor": 1234,
-      "pago": false,
-      "observacao": "",
-      "id": 58
-    },
-    {
-      "mes": "2025-11",
-      "contaId": 1,
-      "valor": 130,
-      "pago": false,
-      "observacao": "",
-      "id": 59
-    },
-    {
-      "mes": "2025-11",
-      "contaId": 2,
-      "valor": null,
-      "pago": false,
-      "observacao": "",
-      "id": 60
-    },
-    {
-      "mes": "2025-11",
-      "contaId": 3,
-      "valor": null,
-      "pago": false,
-      "observacao": "",
-      "id": 61
-    },
-    {
-      "mes": "2025-11",
-      "contaId": 4,
-      "valor": 1234,
-      "pago": false,
-      "observacao": "",
-      "id": 62
-    },
-    {
-      "mes": "2025-12",
-      "contaId": 1,
-      "valor": 130,
-      "pago": false,
-      "observacao": "",
-      "id": 63
-    },
-    {
-      "mes": "2025-12",
-      "contaId": 2,
-      "valor": null,
-      "pago": false,
-      "observacao": "",
-      "id": 64
-    },
-    {
-      "mes": "2025-12",
-      "contaId": 3,
-      "valor": null,
-      "pago": false,
-      "observacao": "",
-      "id": 65
-    },
-    {
-      "mes": "2025-12",
-      "contaId": 4,
-      "valor": 1234,
-      "pago": false,
-      "observacao": "",
-      "id": 66
     }
   ]
 }
