@@ -42,7 +42,7 @@ export class BillForm implements OnInit, OnDestroy {
 
   form = this.fb.group({
     descricao: ['', Validators.required],
-    dataVencimento: ['', Validators.required],
+    dataVencimento: [''],
     valorVariavel: [false],
     valor: [''],
   });

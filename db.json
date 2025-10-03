@@ -264,12 +264,12 @@
       "observacao": "Conta de internet 120.\nração do gato 30"
     },
     {
+      "id": 30,
       "mes": "2025-02",
       "contaId": 3,
-      "valor": null,
+      "valor": 65000,
       "pago": false,
-      "observacao": "",
-      "id": 30
+      "observacao": "Cartão"
     },
     {
       "mes": "2025-03",
